@@ -1,8 +1,9 @@
-unsafe extern "C" {
-    unsafe fn say_hello(name: *const i8);
-}
+include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+
+use std::ffi::CString;
+
 fn main() {
-    let name = std::ffi::CString::new("World").unwrap();
+    let name = CString::new("World").expect("CString::new failed");
     unsafe {
         say_hello(name.as_ptr());
     }
